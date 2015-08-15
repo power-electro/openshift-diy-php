@@ -68,22 +68,27 @@ make && make install
 cd ..
 
 echo "INSTALL PHP"
-wget http://de2.php.net/get/php-5.5.9.tar.gz/from/this/mirror
-tar -zxf php-5.5.9.tar.gz
-cd php-5.5.9
-./configure \
---prefix=$OPENSHIFT_RUNTIME_DIR/srv/php/ \
---with-config-file-path=$OPENSHIFT_RUNTIME_DIR/srv/php/etc/apache2 \
---with-apxs2=$OPENSHIFT_RUNTIME_DIR/srv/httpd/bin/apxs \
---with-zlib=$OPENSHIFT_RUNTIME_DIR/srv/zlib \
---with-libdir=lib64 \
---with-layout=PHP \
---with-gd \
---with-curl \
---with-mysqli \
---with-openssl \
---enable-mbstring \
---enable-zip
+  wget http://ca1.php.net/get/php-${PHP_VERSION}.tar.gz/from/this/mirror
+	tar -zxf mirror
+	rm -rf mirror
+	#tar -zxf php-${PHP_VERSION}.tar.gz
+	cd php-${PHP_VERSION}
+	./configure \
+	--prefix=$OPENSHIFT_RUNTIME_DIR/srv/php/ \
+	--with-config-file-path=$OPENSHIFT_RUNTIME_DIR/srv/php/etc/apache2 \
+	--with-apxs2=$OPENSHIFT_RUNTIME_DIR/srv/httpd/bin/apxs \
+	--with-zlib=$OPENSHIFT_RUNTIME_DIR/srv/zlib \
+	--with-libdir=lib64 \
+    --with-mysql-sock=$HOME/mysql/socket/mysql.sock\
+	--with-pdo-mysql\
+	--with-layout=PHP \
+	--with-gd \
+	--with-curl \
+	--with-mysqli \
+	--with-pdo-pgsql \
+	--with-openssl \
+	--enable-mbstring \
+	--enable-zip 
 #--enable-intl \
 #--with-icu-dir=$OPENSHIFT_RUNTIME_DIR/srv/icu \
 
